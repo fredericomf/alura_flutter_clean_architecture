@@ -1,3 +1,4 @@
+import 'package:alura_flutter_clean_architecture/screens/categories.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,10 +13,11 @@ class Hyrule extends StatelessWidget {
     return MaterialApp(
       title: 'Hyrule',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorSchemeSeed: Colors.blue,
+        brightness: Brightness.dark,
         useMaterial3: true,
       ),
-      home: Container(),
+      home: Categories(),
     );
   }
 }

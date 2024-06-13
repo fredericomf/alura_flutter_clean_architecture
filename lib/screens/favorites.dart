@@ -1,35 +1,21 @@
-import 'package:alura_flutter_clean_architecture/controllers/api_controller.dart';
+import 'package:alura_flutter_clean_architecture/controllers/dao_controller.dart';
 import 'package:alura_flutter_clean_architecture/screens/components/entry_card.dart';
-import 'package:alura_flutter_clean_architecture/screens/favorites.dart';
-import 'package:alura_flutter_clean_architecture/utils/consts/categories.dart';
 import 'package:flutter/material.dart';
 
-class Results extends StatelessWidget {
-  Results({Key? key, required this.category}) : super(key: key);
-  final String category;
+class Favorites extends StatelessWidget {
+  Favorites({Key? key}) : super(key: key);
 
-  final ApiController apiController = ApiController();
+  final DaoController daoController = DaoController();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(categories[category]!),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Favorites(),
-                      ));
-                },
-                icon: const Icon(Icons.bookmark))
-          ],
+          title: const Text("Itens salvos"),
         ),
         body: FutureBuilder(
-          future: apiController.getEntriesByCategory(category: category),
+          future: daoController.getSavedEntries(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.active:
@@ -43,7 +29,7 @@ class Results extends StatelessWidget {
                   return ListView.builder(
                     itemBuilder: (context, index) => EntryCard(
                       entry: snapshot.data![index],
-                      isSaved: false,
+                      isSaved: true,
                     ),
                     itemCount: snapshot.data!.length,
                   );
